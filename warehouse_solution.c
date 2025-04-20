@@ -169,15 +169,15 @@ void* trailer(void* num_input) {
 void* security() {
     for (int i = 0; i < trailer_count; i++) {
         sem_wait(&check_start_sem);      //check if there are any trailers in queue
-        printf("\033[0;34mSecurity: Stanby\n");
-        printf("\033[0;34mSecurity: Checking Trailer-%d\n", trailer_at_sec_post);
+        printf("\033[0;36mSecurity: Stanby\n");
+        printf("\033[0;36mSecurity: Checking Trailer-%d\n", trailer_at_sec_post);
         sleep(random_range(3, 4));
-        printf("\033[0;34mSecurity: Checked & Released\n");
+        printf("\033[0;36mSecurity: Checked & Released\n");
         sem_post(&check_done_sem);       //allow trailer to leave
         sem_post(&sec_avail_sem);        //operation finished, allow security for next trailer 
     }
 
-    printf("\033[1;34mSecurity: Exit\n");
+    printf("\033[1;36mSecurity: Exit\n");
     return NULL;
 }
 
