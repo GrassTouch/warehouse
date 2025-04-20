@@ -15,7 +15,7 @@ int random_range(int, int);
 
 sem_t sec_avail_sem;        //signal 1 security post availability 
 sem_t loading_bay_sem;      //signal 2 loading bays availability
-sem_t check_start_sem;      //signals security to start checking if trailers pnt at security post 
+sem_t check_start_sem;      //signals security to start checking if trailers present at security post 
 sem_t check_done_sem;       //signal trailer to leave security post
 sem_t container_sem;        //ensure mutual exclusion to total_containers variable
 sem_t trailer_sem;          //ensure mutual exclusion to trailer_at_sec_post variable
@@ -167,10 +167,10 @@ void *trailer(void *num_input){
 void *security(){
         for( int i = 0; i < trailer_count;  i++){
         sem_wait(&check_start_sem);      //check if there are any trailers in queue
-        printf("\033[0;36mSecurity: Stanby\n");
-        printf("\033[0;36mSecurity: Checking Trailer-%d\n" ,trailer_at_sec_post);
+        printf("\033[1;36mSecurity: Stanby\n");
+        printf("\033[1;36mSecurity: Checking Trailer-%d\n" ,trailer_at_sec_post);
         sleep(random_range(3,4)); 
-        printf("\033[0;36mSecurity: Checked & Released\n");
+        printf("\033[1;36mSecurity: Checked & Released\n");
         sem_post(&check_done_sem);       //allow trailer to leave
         sem_post(&sec_avail_sem);        //operation finished, allow security for next trailer 
     }
