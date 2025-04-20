@@ -61,8 +61,10 @@ int main(int argc, char* argv[])
     }
 
     //Create forklift thread  
+    int forklift_id[2];
     for (int i = 1; i <= 2; i++) {
-        res = pthread_create(&forklift_thread[i - 1], NULL, forklift, &i);
+        forklift_id[i - 1] = i;
+        res = pthread_create(&forklift_thread[i - 1], NULL, forklift, &forklift_id[i-1]);
         if (res != 0) { //error handling for thread creation
             perror("Thread creation failed!: forklift thread");
             exit(EXIT_FAILURE);
